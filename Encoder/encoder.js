@@ -1,6 +1,5 @@
 //Required Functions
 
-
 function returnIndex(characterToCheck, nodesArray){
     var index;    
     for(var i = 0; i<nodesArray.length; i++ ){
@@ -11,17 +10,16 @@ function returnIndex(characterToCheck, nodesArray){
     return index;
 }
 
-
 function dictionary(character, binary) {
     this.character = character;
     this.binary = binary;    
 }
 
 //Start of the Logic
-
 //Parses the tree
+
 var fs = require("fs");
-var treeArray = fs.readFileSync("tree.txt").toString();
+var treeArray = fs.readFileSync("Huffman_tree/tree.txt").toString();
 var splitCharsTree = /[\r\n]/g;
 treeArray = treeArray.split(splitCharsTree);
 var treeDictionary =[];
@@ -36,32 +34,23 @@ for(var i = 0; i<treeArray.length-1; i++){
 
 //get the text 
 
-var inputArray = fs.readFileSync("encoderInput.txt").toString();
+var inputArray = fs.readFileSync("Encoder/encoderInput.txt").toString();
 var splitChars = "";
 inputArray = inputArray.split(splitChars);
 
 //output
 
 var output="";
-
 var currentBinary;
-
 for(var i = 0; i< inputArray.length; i++){
     currentBinary= treeDictionary[returnIndex(inputArray[i], treeDictionary)].binary;
     output=output+currentBinary;
 }
 
-
-
-
-
 //Outputting Huffman into File
 
-let writeStream = fs.createWriteStream('encoderOutput.txt');
-
-        writeStream.write(output);        
-
-
+let writeStream = fs.createWriteStream('Outputs/encoderOutput.txt');
+writeStream.write(output);
 writeStream.on('finish', () => {     
     console.log('Wrote all data to file');
 });
